@@ -15,8 +15,14 @@
     /// </summary>
     public interface IDiffData
     {
+        /// <summary>
+        /// Zero based Offset for the start of the difference
+        /// </summary>
         int Offset { get; }
 
+        /// <summary>
+        /// The length of the difference
+        /// </summary>
         int Length { get; }
     }
 }

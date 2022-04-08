@@ -25,10 +25,19 @@ namespace DesApi.Models
         public DiffDataModel[] Discrepancies { get; set; } 
     }
 
+    /// <summary>
+    /// Represents a single difference in a line
+    /// </summary>
     public class DiffDataModel
     {
+        /// <summary>
+        /// Zero based Offset for the start of the difference
+        /// </summary>
         public int Offset { get; set; }
 
+        /// <summary>
+        /// The length of the difference
+        /// </summary>
         public int Length { get; set; }
     }
 }
