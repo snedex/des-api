@@ -45,6 +45,12 @@ namespace DesApi.Controllers
                 dbContext.DiffEntries.Add(entry);
             }
 
+            if(data == null || data.Data == null)
+            {
+                this.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return;
+            }
+
             entry.Left = data.Data;
 
             await dbContext.SaveChangesAsync();
@@ -70,6 +76,12 @@ namespace DesApi.Controllers
                 entry = new DiffEntry();
                 entry.Id = id; //Not ideal
                 dbContext.DiffEntries.Add(entry);
+            }
+
+            if (data == null || data.Data == null)
+            {
+                this.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return;
             }
 
             entry.Right = data.Data;
