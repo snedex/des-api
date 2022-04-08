@@ -14,9 +14,9 @@ namespace DesApi.Domain
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
-        public string Left { get; set; }
+        public string? Left { get; set; }
 
-        public string Right { get; set; }
+        public string? Right { get; set; }
 
     }
 }
