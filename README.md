@@ -1,6 +1,6 @@
 # des-api string diff endpoint
  
-API endpoint for storing base64 encoded strings and performing diffs on them.
+API endpoint for storing base64 encoded strings and performing diffs on them as a binary comparison.
 
 # DB setup
 
