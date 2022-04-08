@@ -12,7 +12,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 //Add business logic implementation
-builder.Services.AddTransient<IDiffLogic, DiffLogicImpl>();
+builder.Services.AddTransient<IDiffLogic, CorrectDiffLogicImpl>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
