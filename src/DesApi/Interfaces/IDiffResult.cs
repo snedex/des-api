@@ -7,7 +7,7 @@
     {
         string DiffResultType { get; }
 
-        IDiffData Discrepancies { get; } 
+        IDiffData[] Discrepancies { get; } 
     }
 
     /// <summary>
@@ -15,7 +15,7 @@
     /// </summary>
     public interface IDiffData
     {
-        int Position { get; }
+        int Offset { get; }
 
         int Length { get; }
     }
