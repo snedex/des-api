@@ -18,6 +18,8 @@ VS Code: In the terminal:
  dotnet ef database update
 ```
 
+A SQLite database is included for convenience, delete this to start from fresh.
+
 # Use
 
 The API presents 3 endpoints for performing the diff, this is a three stage operation. 
