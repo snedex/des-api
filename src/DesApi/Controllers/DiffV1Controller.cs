@@ -25,7 +25,7 @@ namespace DesApi.Controllers
         // GET: DiffController
         [HttpPut]
         [Route("diff/{id}/left")]
-        public async Task<StatusCodeResult> Left(int id, DiffRequestModel data)
+        public async Task Left(int id, DiffRequestModel data)
         {
             //Do we have anything in the store?
             var entry = await dbContext.DiffEntries.FindAsync(id);
@@ -34,16 +34,19 @@ namespace DesApi.Controllers
             {
                 entry = new DiffEntry();
                 entry.Id = id; //Not ideal
+                dbContext.DiffEntries.Add(entry);
             }
 
             entry.Left = data.Data;
 
-            return StatusCode((int)HttpStatusCode.Created);
+            await dbContext.SaveChangesAsync();
+
+            this.HttpContext.Response.StatusCode = (int)HttpStatusCode.Created;
         }
 
         [HttpPut]
         [Route("diff/{id}/right")]
-        public async Task<StatusCodeResult> Right(int id, DiffRequestModel data)
+        public async Task Right(int id, DiffRequestModel data)
         {
             //Do we have anything in the store?
             var entry = await dbContext.DiffEntries.FindAsync(id);
@@ -52,18 +55,44 @@ namespace DesApi.Controllers
             {
                 entry = new DiffEntry();
                 entry.Id = id; //Not ideal
+                dbContext.DiffEntries.Add(entry);
             }
 
             entry.Right = data.Data;
 
-            return StatusCode((int)HttpStatusCode.Created);
+            await dbContext.SaveChangesAsync();
+
+            this.HttpContext.Response.StatusCode = (int)HttpStatusCode.Created;
         }
 
         [HttpGet]
         [Route("diff/{id}")]
-        public DiffResultModel DiffResult(int id)
+        public async Task<DiffResultModel> DiffResult(int id)
         {
-            return null;
+            var entry = await dbContext.DiffEntries.FindAsync(id);
+
+            if (entry == null)
+            {
+                this.HttpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                return null;
+            }
+
+            var diffResult = differ.Compare(entry.Left, entry.Right);
+
+            //TODO automapper to make this cleaner
+            var returnValue = new DiffResultModel()
+            {
+                DiffResultType = diffResult.DiffResultType
+            };
+
+            if (diffResult.Discrepancies != null)
+            {
+                returnValue.Discrepancies = diffResult.Discrepancies
+                    .Select(d => new DiffDataModel() { Length = d.Length, Offset = d.Offset })
+                    .ToArray();
+            }
+
+            return returnValue;
         }
     }
 }
