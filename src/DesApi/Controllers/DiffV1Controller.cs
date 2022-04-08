@@ -1,4 +1,5 @@
-﻿using DesApi.Interfaces;
+﻿using DesApi.Data;
+using DesApi.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,11 +9,14 @@ namespace DesApi.Controllers
     [Route("v1")]
     public class DiffV1Controller : ControllerBase
     {
-        public IDiffLogic Differ { get; }
+        private readonly AppDbContext dbContext;
 
-        public DiffV1Controller(IDiffLogic differ)
+        private readonly IDiffLogic differ;
+
+        public DiffV1Controller(AppDbContext dbContext, IDiffLogic differ)
         {
-            Differ = differ;
+            this.dbContext = dbContext;
+            this.differ = differ;
         }
 
         // GET: DiffController
