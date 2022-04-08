@@ -28,7 +28,7 @@ namespace DesApi.Buisness
             for (int i = 0; i < left.Length; i++)
             {
                 //Are we matching?
-                bool matchingChar = left[i] != right[i];
+                bool matchingChar = left[i] == right[i];
 
                 //Not in discrepancy, but now discrepant
                 if(!inDiscrepancy && !matchingChar)
@@ -36,6 +36,7 @@ namespace DesApi.Buisness
                     inDiscrepancy = true;
                     offset = i;
                     length = 1;
+                    continue;
                 }
 
                 //Not in discrepancy, not discrepant
@@ -59,6 +60,7 @@ namespace DesApi.Buisness
                     inDiscrepancy = false;
                     offset = 0;
                     length = 0;
+                    continue;
                 }
             }
 
